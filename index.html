@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Leakage Detection</title>
+    <style>
+        /* Page Background */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Card Container */
+        .card {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #4b0082;
+        }
+
+        /* Input Fields */
+        input[type="number"] {
+            width: 90%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #764ba2;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Submit Button */
+        input[type="submit"] {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            margin-top: 20px;
+            font-size: 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        /* Prediction Result */
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 12px;
+        }
+
+        .leak {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        .safe {
+            background-color: #4caf50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Data Leakage Detection</h1>
+        <form action="/predict" method="post">
+            Authority: <input type="number" name="Authority" required><br>
+            Through_pwd: <input type="number" name="Through_pwd" required><br>
+            Through_pin: <input type="number" name="Through_pin" required><br>
+            Through_MFA: <input type="number" name="Through_MFA" required><br>
+            Data_Modification: <input type="number" name="Data_Modification" required><br>
+            Confidential_Data_Access: <input type="number" name="Confidential_Data_Access" required><br>
+            Confidential_File_Transfer: <input type="number" name="Confidential_File_Transfer" required><br>
+            External_Destination: <input type="number" name="External_Destination" required><br>
+            File_Operation: <input type="number" name="File_Operation" required><br>
+            Data_Sensitivity_Level: <input type="number" name="Data_Sensitivity_Level" required><br>
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction_text %}
+            <div class="result {% if 'Detected' in prediction_text %}leak{% else %}safe{% endif %}">
+                {{ prediction_text }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
