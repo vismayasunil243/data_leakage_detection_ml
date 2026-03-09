@@ -12,6 +12,8 @@ This project builds a machine learning model to detect abnormal user activities 
 ## Machine Learning Models
 - Logistic Regression
 - Random Forest
+- Decision Tree
+- svm
 
 ## Project Steps
 1. Data preprocessing
